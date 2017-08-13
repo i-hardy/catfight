@@ -31,4 +31,8 @@ Game.prototype.loser = function () {
   return this._players.filter(player => player.hitPoints() <= 0)[0]
 }
 
+Game.prototype.poisonedPlayers = function () {
+  return this._players.filter(player => player.isPoisoned() === true)
+}
+
 export { Game }

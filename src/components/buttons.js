@@ -16,5 +16,23 @@ function AttackButton (props) {
   )
 }
 
+function PoisonButton (props) {
+  return (
+    <button onClick={props.onClick}>
+      POISON
+    </button>
+  )
+}
+
+function RestartButton (props) {
+  return (
+    <button onClick={props.onClick}>
+      Play again?
+    </button>
+  )
+}
+
 export { StartButton }
 export { AttackButton }
+export { PoisonButton }
+export { RestartButton }

@@ -5,8 +5,10 @@ import './App.css'
 class BattleApp extends Component {
   render () {
     return <div id='battleapp'>
-      <h1 id='title'> BATTLE! </h1>
-      <GameState />
+      <center>
+        <h1 id='title'> BATTLE! </h1>
+        <GameState />
+      </center>
     </div>
   }
 }

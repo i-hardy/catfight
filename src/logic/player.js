@@ -1,6 +1,7 @@
 function Player (name) {
   this._name = name
   this._hp = 100
+  this._poisonedCount = 0
 }
 
 Player.prototype.getName = function () {
@@ -13,6 +14,22 @@ Player.prototype.hitPoints = function () {
 
 Player.prototype.getHit = function (value) {
   this._hp -= value
+}
+
+Player.prototype.isPoisoned = function () {
+  var status = this._poisonedCount > 0 && this._poisonedCount < 5
+  return status
+}
+
+Player.prototype.getPoisoned = function () {
+  this._poisonedCount += 1
+  this.poisonRecover()
+}
+
+Player.prototype.poisonRecover = function () {
+  if (this._poisonedCount > 4) {
+    this._poisonedCount = 0
+  }
 }
 
 export { Player }

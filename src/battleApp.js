@@ -6,7 +6,7 @@ class BattleApp extends Component {
   render () {
     return <div id='battleapp'>
       <center>
-        <h1 id='title'> BATTLE! </h1>
+        <h1 id='title'> CATFIGHT! </h1>
         <GameState />
       </center>
     </div>

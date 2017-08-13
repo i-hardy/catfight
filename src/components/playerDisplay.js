@@ -3,6 +3,15 @@ import React, { Component } from 'react'
 class PlayerDisplay extends Component {
   constructor (props) {
     super()
+    this.state = { pic: '' }
+    this.rollPic()
+  }
+
+  rollPic () {
+    fetch('http://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
+    .then(response => {
+      this.setState({ pic: response.url })
+    })
   }
 
   render (props) {
@@ -15,9 +24,12 @@ class PlayerDisplay extends Component {
 
     return (
       <div>
-        {name}<br />
-        {hitpoints} HP<br />
-        {poisoned}
+        <center>
+          {name}<br />
+          <img src={this.state.pic} alt='WARRIOR' /><br />
+          {hitpoints} HP<br />
+          {poisoned}
+        </center>
       </div>
     )
   }

@@ -26,15 +26,15 @@ class PlayerForm extends Component {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Player One:
+        <p><label>
+          Player One:<br />
           <input type='text' value={this.state.player1} onChange={this.handleChange1} />
-        </label>
-        <label>
-          Player Two:
+        </label></p>
+        <p><label>
+          Player Two:<br />
           <input type='text' value={this.state.player2} onChange={this.handleChange2} />
-        </label>
-        <input type='submit' value='Submit' />
+        </label></p>
+        <p><input type='submit' value='Submit' /></p>
       </form>
     )
   }

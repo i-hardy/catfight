@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 
 class PlayerDisplay extends Component {
   constructor (props) {
-    super()
-    this.state = { pic: '' }
+    super(props)
+    this.state = { pic: '', type: this.props.pic }
     this.rollPic()
   }
 
-  rollPic () {
-    fetch('https://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
-    .then(response => {
+  rollPic (props) {
+    var type = this.state.type
+    fetch('https://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=' + type)
+    .then((response) => {
       this.setState({ pic: response.url })
     })
   }
@@ -28,7 +29,7 @@ class PlayerDisplay extends Component {
           <td>{name}</td>
         </tr>
         <tr>
-          <td><img src={this.state.pic} alt='WARRIOR' /></td>
+          <td><img src={this.state.pic} alt='' /></td>
         </tr>
         <tr>
           <td>{hitpoints} HP</td>

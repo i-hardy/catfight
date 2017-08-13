@@ -8,7 +8,7 @@ class PlayerDisplay extends Component {
   }
 
   rollPic () {
-    fetch('http://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
+    fetch('https://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
     .then(response => {
       this.setState({ pic: response.url })
     })

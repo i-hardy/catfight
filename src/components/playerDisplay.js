@@ -8,9 +8,9 @@ class PlayerDisplay extends Component {
   }
 
   rollPic () {
-    fetch('http://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
+    fetch('https://thecatapi.com/api/images/get?api_key=MjEzOTk4&type=jpg,png&size=small')
     .then(response => {
-      this.setState({ pic: response.url.replace('http', 'https') })
+      this.setState({ pic: response.url })
     })
   }
 
@@ -23,14 +23,20 @@ class PlayerDisplay extends Component {
     }
 
     return (
-      <div>
-        <center>
-          {name}<br />
-          <img src={this.state.pic} alt='WARRIOR' /><br />
-          {hitpoints} HP<br />
-          {poisoned}
-        </center>
-      </div>
+      <table>
+        <tr>
+          <td>{name}</td>
+        </tr>
+        <tr>
+          <td><img src={this.state.pic} alt='WARRIOR' /></td>
+        </tr>
+        <tr>
+          <td>{hitpoints} HP</td>
+        </tr>
+        <tr>
+          <td>{poisoned}</td>
+        </tr>
+      </table>
     )
   }
 }

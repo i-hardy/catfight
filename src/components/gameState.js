@@ -59,39 +59,43 @@ class GameState extends Component {
 
     let players = null
     if (!isRunning) {
-      players = <PlayerForm onSubmit={this.handleStartClick} />
+      players = <section className='main'><PlayerForm onSubmit={this.handleStartClick} /></section>
     } else {
-      players = <section id='players-container'>
-        <table>
-          <tr>
-            <td><PlayerDisplay player={this.state.game.player1()} /></td>
-            <td><PlayerDisplay player={this.state.game.player2()} /></td>
-          </tr>
-        </table>
+      players = <section className='player-container'>
+        <PlayerDisplay player={this.state.game.player1()} />
+        <PlayerDisplay player={this.state.game.player2()} />
       </section>
     }
 
     let gameplay = null
     if (this.state.game) {
       if (this.state.game.isOver()) {
-        gameplay = <section id='game-over'>
+        gameplay = <section className='game-over'>
           <p> GAME OVER!!! {this.state.game.loser().getName()} was defeated! </p>
           <p> <RestartButton onClick={this.handleResetClick} /> </p>
         </section>
       } else {
-        gameplay = <section id='game-running'>
-          <p> {this.state.game.currentTurn().getName()}{"'s turn"}</p>
-          <p> <AttackButton onClick={this.handleAttackClick} /> </p>
-          <p> <PoisonButton onClick={this.handlePoisonClick} /> </p>
+        gameplay = <section>
+          <table>
+            <tr>
+              <td> {this.state.game.currentTurn().getName()}{"'s turn"}</td>
+            </tr>
+            <tr>
+              <td> <AttackButton onClick={this.handleAttackClick} /> </td>
+              <td> <PoisonButton onClick={this.handlePoisonClick} /> </td>
+            </tr>
+          </table>
         </section>
       }
     }
 
     return (
-      <div>
+      <section className='main'>
         {players}
-        {gameplay}
-      </div>
+        <center>
+          {gameplay}
+        </center>
+      </section>
     )
   }
 }

@@ -1,45 +1,58 @@
-.App {
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.player-container {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.players-container {
-  font: normal 12px/150% Courier New, Courier, monospace;
-  overflow: hidden;
-}
-
-.players-container table {
-  border-collapse: collapse;
-  text-align: left; width: 100%;
-}
-
-.players-container table td, .datagrid table th {
-  padding: 2px 10px;
-}
-
-.players-container table tbody td {
   color: #00496B;
-  font-size: 16px;
-  font-weight: normal;
+  font-family: Courier;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 25%;
+  display: inline-block;
+  margin: 2em;
+  height: 100%;
+  max-height:500px;
+}
+
+table td {
+  margin: 2em;
+  padding: 1em 2em;
+  border-left: 2em solid #fff;
   background: #E1EEF4;
+  width: 50%;
+}
+
+tr:first-child td:first-child {
+  border-top-left-radius: 10px;
+}
+tr:first-child td:last-child {
+  border-top-right-radius: 10px;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+table td:first-child {
+  border-left: none;
+ }
+
+img {
+  border-radius: 10px;
+  border:3px solid #00496B;
+  max-width: 250px;
+  height:250px;
 }

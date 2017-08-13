@@ -4,12 +4,8 @@ import './App.css'
 
 class BattleApp extends Component {
   render () {
-    return <div id='battleapp'>
-      <center>
-        <h1 id='title'> CATFIGHT! </h1>
-        <GameState />
-      </center>
-    </div>
+    return <section className='main'><h1 id='title'> CATFIGHT! </h1>
+      <GameState /></section>
   }
 }
 

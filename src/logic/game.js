@@ -1,6 +1,6 @@
 function Game (player1, player2) {
   this._players = [player1, player2]
-  this._currentTurn = player1
+  this._currentTurn = this.whoGoesFirst()
 }
 
 Game.prototype.player1 = function () {
@@ -9,6 +9,10 @@ Game.prototype.player1 = function () {
 
 Game.prototype.player2 = function () {
   return this._players[1]
+}
+
+Game.prototype.whoGoesFirst = function () {
+  return this._players[Math.floor(Math.random() * this._players.length)]
 }
 
 Game.prototype.currentTurn = function () {

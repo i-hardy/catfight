@@ -123,3 +123,7 @@ input:focus {
   outline: 0;
   border: 1px solid #210708;
 }
+
+ul {
+  list-style-type: none;
+}

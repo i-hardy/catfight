@@ -8,6 +8,7 @@ beforeEach(() => {
   player1 = new Player('Macavity')
   player2 = new Player('Bustopher Jones')
   game = new Game(player1, player2)
+  Math['floor'] = jest.fn(() => 0)
 })
 
 test('has two players', () => {
@@ -16,6 +17,11 @@ test('has two players', () => {
 })
 
 test('states whose turn it is', () => {
+  game['_currentTurn'] = player2
+  expect(game.currentTurn()).toBe(player2)
+})
+
+test('randomises the first turn', () => {
   expect(game.currentTurn()).toBe(player1)
 })
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import GameRules from './gameRules'
 import PlayerForm from './playerForm'
-import PlayerDisplay from './playerDisplay'
+import ButtonTable from './buttonTable'
+import RestartTable from './restartTable'
+import PlayerContainer from './playerContainer'
 import { Game } from '../logic/game'
 import { Player } from '../logic/player'
 import { Attack } from '../logic/attack'
-import { AttackButton, RestartButton, PoisonButton, SleepButton } from './buttons'
 
 class GameState extends Component {
   constructor (props) {
@@ -75,69 +77,32 @@ class GameState extends Component {
     this.setState()
   }
 
-  playerStyle (player) {
-    var style = {}
-    if (this.state.game.currentTurn() === player) {
-      style.boxShadow = '0px 0px 4px 4px #AF262B'
-    }
-    if (player.isPoisoned()) {
-      style.background = '#725C75'
-    }
-    if (player.isAsleep()) {
-      style.background = '#AFCDDB'
-    }
-    return style
-  }
-
   render () {
     const isRunning = this.state.isRunning
     const isOver = this.state.game && this.state.game.isOver()
 
     let players = null
     if (!isRunning) {
-      players = <section className='main'><PlayerForm onSubmit={this.handleStartClick} /></section>
-    } else if (isRunning && !isOver) {
-      players = <section className='player-container'>
-        <PlayerDisplay player={this.state.game.player1()} pic='jpg' style={this.playerStyle(this.state.game.player1())} />
-        <PlayerDisplay player={this.state.game.player2()} pic='png' style={this.playerStyle(this.state.game.player2())} />
-      </section>
+      players = <section className='main'><PlayerForm onSubmit={this.handleStartClick} />
+        <GameRules /></section>
     } else {
-      players = <section className='player-container'>
-        <h2> GAME OVER!!! {this.state.game.loser().getName()} was defeated! </h2>
-      </section>
+      players = <PlayerContainer game={this.state.game} />
     }
 
     let gameplay = null
     if (isOver) {
-      gameplay = <section className='gameplay'>
-        <table>
-          <tbody>
-            <tr>
-              <td><RestartButton onClick={this.handleResetClick} /></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      gameplay = <RestartTable handleResetClick={this.handleResetClick} />
     } else if (isRunning) {
-      gameplay = <section className='gameplay'>
-        <table>
-          <tbody>
-            <tr>
-              <td> <SleepButton onClick={this.handleSleepClick} /> </td>
-              <td> <AttackButton onClick={this.handleAttackClick} /> </td>
-              <td> <PoisonButton onClick={this.handlePoisonClick} /> </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      gameplay = <ButtonTable handleSleepClick={this.handleSleepClick}
+        handleAttackClick={this.handleAttackClick}
+        handlePoisonClick={this.handlePoisonClick}
+       />
     }
 
     return (
       <section className='main'>
         {players}
-        <center>
-          {gameplay}
-        </center>
+        {gameplay}
       </section>
     )
   }

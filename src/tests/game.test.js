@@ -20,8 +20,17 @@ test('states whose turn it is', () => {
 })
 
 test('can switch turns', () => {
+  player1['isAsleep'] = jest.fn(() => false)
+  player2['isAsleep'] = jest.fn(() => false)
   game.switchTurns()
   expect(game.currentTurn()).toBe(player2)
+})
+
+test('will not switch turns if the opponent is asleep', () => {
+  player1['isAsleep'] = jest.fn(() => false)
+  player2['isAsleep'] = jest.fn(() => true)
+  game.switchTurns()
+  expect(game.currentTurn()).toBe(player1)
 })
 
 test('returns the current opponent', () => {
@@ -50,4 +59,10 @@ test('returns any currently poisoned players', () => {
   player1['isPoisoned'] = jest.fn(() => false)
   player2['isPoisoned'] = jest.fn(() => true)
   expect(game.poisonedPlayers()[0]).toBe(player2)
+})
+
+test('returns any currently sleeping players', () => {
+  player1['isAsleep'] = jest.fn(() => false)
+  player2['isAsleep'] = jest.fn(() => true)
+  expect(game.sleepingPlayers()[0]).toBe(player2)
 })

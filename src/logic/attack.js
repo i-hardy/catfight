@@ -14,6 +14,10 @@ Attack.prototype.getPoisoned = function () {
   this._player.getPoisoned()
 }
 
+Attack.prototype.fallAsleep = function () {
+  this._player.fallAsleep()
+}
+
 Attack.run = function (player, damageType) {
   var attack = new Attack(player)
   attack.run(damageType)
@@ -22,6 +26,11 @@ Attack.run = function (player, damageType) {
 Attack.getPoisoned = function (player) {
   var attack = new Attack(player)
   attack.getPoisoned()
+}
+
+Attack.fallAsleep = function (player) {
+  var attack = new Attack(player)
+  attack.fallAsleep()
 }
 
 Attack.damage = function () {

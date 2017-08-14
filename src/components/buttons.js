@@ -2,8 +2,8 @@ import React from 'react'
 
 function StartButton (props) {
   return (
-    <button onClick={props.onClick}>
-      Start game
+    <button type='submit' onClick={props.onClick}>
+      Start Game
     </button>
   )
 }
@@ -24,6 +24,14 @@ function PoisonButton (props) {
   )
 }
 
+function SleepButton (props) {
+  return (
+    <button onClick={props.onClick}>
+      SLEEP
+    </button>
+  )
+}
+
 function RestartButton (props) {
   return (
     <button onClick={props.onClick}>
@@ -35,4 +43,5 @@ function RestartButton (props) {
 export { StartButton }
 export { AttackButton }
 export { PoisonButton }
+export { SleepButton }
 export { RestartButton }

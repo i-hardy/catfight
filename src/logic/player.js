@@ -2,6 +2,7 @@ function Player (name) {
   this._name = name
   this._hp = 100
   this._poisonedCount = 0
+  this._sleepCount = 0
 }
 
 Player.prototype.getName = function () {
@@ -29,6 +30,21 @@ Player.prototype.getPoisoned = function () {
 Player.prototype.poisonRecover = function () {
   if (this._poisonedCount > 4) {
     this._poisonedCount = 0
+  }
+}
+
+Player.prototype.isAsleep = function () {
+  return this._sleepCount > 0 && this._sleepCount < 3
+}
+
+Player.prototype.fallAsleep = function () {
+  this._sleepCount += 1
+  this.wakeUp()
+}
+
+Player.prototype.wakeUp = function () {
+  if (this._sleepCount > 2) {
+    this._sleepCount = 0
   }
 }
 

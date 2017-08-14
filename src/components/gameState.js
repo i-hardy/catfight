@@ -4,7 +4,7 @@ import PlayerDisplay from './playerDisplay'
 import { Game } from '../logic/game'
 import { Player } from '../logic/player'
 import { Attack } from '../logic/attack'
-import { AttackButton, RestartButton, PoisonButton } from './buttons'
+import { AttackButton, RestartButton, PoisonButton, SleepButton } from './buttons'
 
 class GameState extends Component {
   constructor (props) {
@@ -12,6 +12,7 @@ class GameState extends Component {
     this.handleStartClick = this.handleStartClick.bind(this)
     this.handleAttackClick = this.handleAttackClick.bind(this)
     this.handlePoisonClick = this.handlePoisonClick.bind(this)
+    this.handleSleepClick = this.handleSleepClick.bind(this)
     this.handleResetClick = this.handleResetClick.bind(this)
     this.state = { isRunning: false, game: null }
   }
@@ -34,6 +35,13 @@ class GameState extends Component {
     this.afterAttack()
   }
 
+  handleSleepClick () {
+    if (!this.state.game.currentOpponent().isAsleep()) {
+      Attack.fallAsleep(this.state.game.currentOpponent())
+    }
+    this.afterAttack('sleep')
+  }
+
   handleResetClick () {
     this.setState({ isRunning: false,
       game: null
@@ -48,43 +56,80 @@ class GameState extends Component {
     })
   }
 
-  afterAttack () {
-    this.handlePoisonedPlayers()
+  handleSleepingPlayers () {
+    var sleepingPlayers = this.state.game.sleepingPlayers()
+    sleepingPlayers.forEach((player) => {
+      Attack.fallAsleep(player)
+    })
+  }
+
+  afterAttack (calledBy) {
+    if (calledBy === 'sleep') {
+      console.log('sleeping')
+      this.handlePoisonedPlayers()
+    } else {
+      this.handlePoisonedPlayers()
+      this.handleSleepingPlayers()
+    }
     this.state.game.switchTurns()
     this.setState()
   }
 
+  playerStyle (player) {
+    var style = {}
+    if (this.state.game.currentTurn() === player) {
+      style.boxShadow = '0px 0px 4px 4px #AF262B'
+    }
+    if (player.isPoisoned()) {
+      style.background = '#725C75'
+    }
+    if (player.isAsleep()) {
+      style.background = '#AFCDDB'
+    }
+    return style
+  }
+
   render () {
     const isRunning = this.state.isRunning
+    const isOver = this.state.game && this.state.game.isOver()
 
     let players = null
     if (!isRunning) {
       players = <section className='main'><PlayerForm onSubmit={this.handleStartClick} /></section>
+    } else if (isRunning && !isOver) {
+      players = <section className='player-container'>
+        <PlayerDisplay player={this.state.game.player1()} pic='jpg' style={this.playerStyle(this.state.game.player1())} />
+        <PlayerDisplay player={this.state.game.player2()} pic='png' style={this.playerStyle(this.state.game.player2())} />
+      </section>
     } else {
       players = <section className='player-container'>
-        <PlayerDisplay player={this.state.game.player1()} pic='jpg' />
-        <PlayerDisplay player={this.state.game.player2()} pic='png' />
+        <h2> GAME OVER!!! {this.state.game.loser().getName()} was defeated! </h2>
       </section>
     }
 
     let gameplay = null
-    if (this.state.game) {
-      if (this.state.game.isOver()) {
-        gameplay = <section className='gameplay'>
-          <p> GAME OVER!!! {this.state.game.loser().getName()} was defeated! </p>
-          <p> <RestartButton onClick={this.handleResetClick} /> </p>
-        </section>
-      } else {
-        gameplay = <section className='gameplay'>
-          <p>{this.state.game.currentTurn().getName()}{"'s turn"}</p>
-          <table>
+    if (isOver) {
+      gameplay = <section className='gameplay'>
+        <table>
+          <tbody>
             <tr>
+              <td><RestartButton onClick={this.handleResetClick} /></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    } else if (isRunning) {
+      gameplay = <section className='gameplay'>
+        <table>
+          <tbody>
+            <tr>
+              <td> <SleepButton onClick={this.handleSleepClick} /> </td>
               <td> <AttackButton onClick={this.handleAttackClick} /> </td>
               <td> <PoisonButton onClick={this.handlePoisonClick} /> </td>
             </tr>
-          </table>
-        </section>
-      }
+          </tbody>
+        </table>
+      </section>
     }
 
     return (

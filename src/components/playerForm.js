@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { StartButton } from './buttons'
 
 class PlayerForm extends Component {
   constructor (props) {
@@ -27,14 +28,14 @@ class PlayerForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <p><label>
-          Player One:<br />
+          Player One<br />
           <input type='text' value={this.state.player1} onChange={this.handleChange1} />
         </label></p>
         <p><label>
-          Player Two:<br />
+          Player Two<br />
           <input type='text' value={this.state.player2} onChange={this.handleChange2} />
         </label></p>
-        <p><input type='submit' value='Submit' /></p>
+        <p><StartButton /></p>
       </form>
     )
   }

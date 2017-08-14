@@ -19,3 +19,9 @@ it('deals poison damage', () => {
   Attack.run(player, 'poison')
   expect(poisonDamage).toHaveBeenCalled()
 })
+
+it('puts a player to sleep', () => {
+  const sleep = jest.spyOn(player, 'fallAsleep')
+  Attack.fallAsleep(player)
+  expect(sleep).toHaveBeenCalled()
+})

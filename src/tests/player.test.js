@@ -34,3 +34,20 @@ test('can recover from poison', () => {
   testPlayer.poisonRecover()
   expect(testPlayer.isPoisoned()).toBe(false)
 })
+
+test('sleep status can be retrieved', () => {
+  expect(testPlayer.isAsleep()).toBe(false)
+})
+
+test('can be put to sleep', () => {
+  testPlayer.fallAsleep()
+  expect(testPlayer.isAsleep()).toBe(true)
+})
+
+test('can be woken up', () => {
+  for (var i = 0; i < 3; i++) {
+    testPlayer.fallAsleep()
+  }
+  testPlayer.wakeUp()
+  expect(testPlayer.isAsleep()).toBe(false)
+})

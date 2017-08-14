@@ -16,7 +16,9 @@ Game.prototype.currentTurn = function () {
 }
 
 Game.prototype.switchTurns = function () {
-  this._currentTurn = this.currentOpponent()
+  if (!this.currentOpponent().isAsleep()) {
+    this._currentTurn = this.currentOpponent()
+  }
 }
 
 Game.prototype.currentOpponent = function () {
@@ -33,6 +35,10 @@ Game.prototype.loser = function () {
 
 Game.prototype.poisonedPlayers = function () {
   return this._players.filter(player => player.isPoisoned() === true)
+}
+
+Game.prototype.sleepingPlayers = function () {
+  return this._players.filter(player => player.isAsleep() === true)
 }
 
 export { Game }

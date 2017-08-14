@@ -17,14 +17,12 @@ class PlayerDisplay extends Component {
 
   render (props) {
     let name = this.props.player.getName()
-    let hitpoints = this.props.player.hitPoints()
-    let poisoned = null
-    if (this.props.player.isPoisoned()) {
-      poisoned = <span>POISONED!!</span>
+    let hitpoints = null
+    if (this.props.player.hitPoints() > 0) {
+      hitpoints = this.props.player.hitPoints()
     }
-
     return (
-      <table>
+      <table style={this.props.style}>
         <tr>
           <td>{name}</td>
         </tr>
@@ -33,9 +31,6 @@ class PlayerDisplay extends Component {
         </tr>
         <tr>
           <td>{hitpoints} HP</td>
-        </tr>
-        <tr>
-          <td>{poisoned}</td>
         </tr>
       </table>
     )

@@ -29,11 +29,11 @@ class PlayerForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <p><label>
           Player One<br />
-          <input type='text' value={this.state.player1} onChange={this.handleChange1} />
+          <input type='text' value={this.state.player1} onChange={this.handleChange1} required />
         </label></p>
         <p><label>
           Player Two<br />
-          <input type='text' value={this.state.player2} onChange={this.handleChange2} />
+          <input type='text' value={this.state.player2} onChange={this.handleChange2} required />
         </label></p>
         <p><StartButton /></p>
       </form>

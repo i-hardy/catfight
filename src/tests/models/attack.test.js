@@ -1,5 +1,5 @@
-import { Attack } from '../logic/attack'
-import { Player } from '../logic/player'
+import { Attack } from '../../logic/attack'
+import { Player } from '../../logic/player'
 const player = new Player('Macavity')
 
 it('attacks a player', () => {

@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
-import GameRules from './gameRules'
-import PlayerForm from './playerForm'
-import ButtonTable from './buttonTable'
-import RestartTable from './restartTable'
-import PlayerContainer from './playerContainer'
-import { Game } from '../logic/game'
-import { Player } from '../logic/player'
-import { Attack } from '../logic/attack'
+import { GameRules, PlayerForm, ButtonTable, RestartTable, PlayerContainer } from './componentExports'
+import { Game, Player, Attack, EffectivenessCalculator, Heal } from '../logic/logicExports'
 
 class GameState extends Component {
   constructor (props) {
@@ -15,6 +9,7 @@ class GameState extends Component {
     this.handleAttackClick = this.handleAttackClick.bind(this)
     this.handlePoisonClick = this.handlePoisonClick.bind(this)
     this.handleSleepClick = this.handleSleepClick.bind(this)
+    this.handleHealClick = this.handleHealClick.bind(this)
     this.handleResetClick = this.handleResetClick.bind(this)
     this.state = { isRunning: false, game: null }
   }
@@ -31,17 +26,22 @@ class GameState extends Component {
   }
 
   handlePoisonClick () {
-    if (!this.state.game.currentOpponent().isPoisoned()) {
+    if (EffectivenessCalculator.poisonAttack() && !this.state.game.currentOpponent().isPoisoned()) {
       Attack.getPoisoned(this.state.game.currentOpponent())
     }
     this.afterAttack()
   }
 
   handleSleepClick () {
-    if (!this.state.game.currentOpponent().isAsleep()) {
+    if (EffectivenessCalculator.sleepAttack() && !this.state.game.currentOpponent().isAsleep()) {
       Attack.fallAsleep(this.state.game.currentOpponent())
     }
     this.afterAttack('sleep')
+  }
+
+  handleHealClick () {
+    Heal.run(this.state.game.currentTurn())
+    this.afterAttack()
   }
 
   handleResetClick () {
@@ -66,15 +66,12 @@ class GameState extends Component {
   }
 
   afterAttack (calledBy) {
-    if (calledBy === 'sleep') {
-      console.log('sleeping')
-      this.handlePoisonedPlayers()
-    } else {
-      this.handlePoisonedPlayers()
+    if (calledBy !== 'sleep') {
       this.handleSleepingPlayers()
     }
+    this.handlePoisonedPlayers()
     this.state.game.switchTurns()
-    this.setState()
+    this.forceUpdate()
   }
 
   render () {
@@ -96,6 +93,7 @@ class GameState extends Component {
       gameplay = <ButtonTable handleSleepClick={this.handleSleepClick}
         handleAttackClick={this.handleAttackClick}
         handlePoisonClick={this.handlePoisonClick}
+        handleHealClick={this.handleHealClick}
        />
     }
 

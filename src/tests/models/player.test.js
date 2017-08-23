@@ -1,4 +1,4 @@
-import { Player } from '../logic/player'
+import { Player } from '../../logic/player'
 var testPlayer
 
 beforeEach(() => {
@@ -50,4 +50,10 @@ test('can be woken up', () => {
   }
   testPlayer.wakeUp()
   expect(testPlayer.isAsleep()).toBe(false)
+})
+
+test('can be healed', () => {
+  testPlayer.getHit(30)
+  testPlayer.heal()
+  expect(testPlayer.hitPoints()).toEqual(80)
 })

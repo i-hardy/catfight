@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AttackButton, PoisonButton, SleepButton } from './buttons'
+import { AttackButton, PoisonButton, SleepButton, HealButton } from './buttons'
 
 class ButtonTable extends Component {
   constructor (props) {
@@ -15,6 +15,7 @@ class ButtonTable extends Component {
               <td> <SleepButton onClick={this.props.handleSleepClick} /> </td>
               <td> <AttackButton onClick={this.props.handleAttackClick} /> </td>
               <td> <PoisonButton onClick={this.props.handlePoisonClick} /> </td>
+              <td> <HealButton onClick={this.props.handleHealClick} /> </td>
             </tr>
           </tbody>
         </table>

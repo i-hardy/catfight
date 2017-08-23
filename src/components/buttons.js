@@ -18,7 +18,7 @@ function AttackButton (props) {
 
 function PoisonButton (props) {
   return (
-    <button onClick={props.onClick}>
+    <button onClick={props.onClick} style={{background: '#725C75'}}>
       POISON
     </button>
   )
@@ -26,8 +26,16 @@ function PoisonButton (props) {
 
 function SleepButton (props) {
   return (
-    <button onClick={props.onClick}>
+    <button onClick={props.onClick} style={{background: '#AFCDDB'}}>
       SLEEP
+    </button>
+  )
+}
+
+function HealButton (props) {
+  return (
+    <button onClick={props.onClick} >
+      HEAL
     </button>
   )
 }
@@ -44,4 +52,5 @@ export { StartButton }
 export { AttackButton }
 export { PoisonButton }
 export { SleepButton }
+export { HealButton }
 export { RestartButton }

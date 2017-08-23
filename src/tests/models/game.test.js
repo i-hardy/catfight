@@ -1,4 +1,4 @@
-import { Game } from '../logic/game'
+import { Game } from '../../logic/game'
 const Player = jest.fn()
 var player1
 var player2

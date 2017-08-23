@@ -17,6 +17,10 @@ Player.prototype.getHit = function (value) {
   this._hp -= value
 }
 
+Player.prototype.heal = function () {
+  this._hp += 10
+}
+
 Player.prototype.isPoisoned = function () {
   var status = this._poisonedCount > 0 && this._poisonedCount < 5
   return status
